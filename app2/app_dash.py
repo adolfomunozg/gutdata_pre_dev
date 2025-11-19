@@ -25,6 +25,9 @@ services_data = [
 external_stylesheets = ['/assets/style.css'] # Dash busca en la carpeta 'assets' por defecto
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+# Exponer el servidor para producción
+server = app.server
+
 
 # Layout de la aplicación
 app.layout = html.Div(children=[
@@ -87,4 +90,4 @@ app.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8050)
