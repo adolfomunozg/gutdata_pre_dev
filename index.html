@@ -136,11 +136,10 @@
                 <h2>¿Listo para innovar?</h2>
                 <p style="margin-bottom: 2rem;">Cuéntanos tu desafío y diseñemos el futuro juntos.</p>
 
-                <form class="contact-form" id="contactForm" action="https://formsubmit.co/gutdataconsultoria@gmail.com"
-                    method="POST">
-                    <input type="hidden" name="_next" value="https://gutdata.com/thanks.html">
-                    <input type="hidden" name="_subject" value="Nuevo contacto desde GutData Web">
-                    <input type="hidden" name="_captcha" value="false">
+                <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="bb786dec-95c8-4b91-9bcd-e0bf96651964">
+                    <input type="hidden" name="subject" value="Nuevo contacto desde GutData Web">
+                    <input type="hidden" name="from_name" value="GutData Web">
                     <input type="text" name="name" placeholder="Tu Nombre" class="form-input" required>
                     <input type="email" name="email" placeholder="Tu Correo Corporativo" class="form-input" required>
                     <textarea name="message" placeholder="¿En qué podemos ayudarte?" class="form-input" rows="4"
