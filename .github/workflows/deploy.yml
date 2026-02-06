@@ -24,4 +24,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./  # Sube todo el contenido de tu repo
-        server-dir: /public_html/gutdata.cl/  # Ajustado a la ruta que mencionaste an
+        server-dir: /public_html/
