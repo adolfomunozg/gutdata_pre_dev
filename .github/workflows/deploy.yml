@@ -18,8 +18,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ${{ secrets.FTP_SERVER }}  # Usa la IP 201.148.104.98
+        server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./ 
-        server-dir: ./  # Esto significa "deja los archivos aquí mismo", que ahora es public_html
+        server-dir: ./  # <-- IMPORTANTE: Deja solo el punto y barra
