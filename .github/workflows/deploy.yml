@@ -3,7 +3,7 @@ name: Deploy a Ninja Hosting
 on:
   push:
     branches:
-      - main  # O la rama que uses (master/main)
+      - develop  # Cambiamos main por develop
 
 jobs:
   web-deploy:
@@ -12,10 +12,8 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
-
-    # Nota para Ingeniero: Si vas a usar Antigravity y requiere compilación,
-    # aquí irían los pasos de npm install && npm run build.
-    # Por ahora, subiremos los archivos directos.
+      with:
+        ref: develop # Asegura que haga el checkout de la rama correcta
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -23,5 +21,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./  # O ./dist/ si ya estás compilando con Antigravity
-        server-dir: /public_html/  # <-- IMPORTANTE: Debe terminar en public_html/
+        local-dir: ./ 
+        server-dir: ./public_html/
