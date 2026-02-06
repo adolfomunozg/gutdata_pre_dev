@@ -22,4 +22,6 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./ 
-        server-dir: ./public_html/
+        # Si tu usuario FTP ya apunta a public_html, usa ./
+        # Si tu usuario FTP apunta a la raíz (/), usa ./public_html/
+        server-dir: ./
