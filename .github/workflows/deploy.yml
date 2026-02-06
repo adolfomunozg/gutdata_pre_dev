@@ -1,27 +1,27 @@
-name: Deploy to GitHub Pages
+name: Deploy a Ninja Hosting
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main  # O la rama que uses (master/main)
 
 jobs:
-  deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    # Nota para Ingeniero: Si vas a usar Antigravity y requiere compilación,
+    # aquí irían los pasos de npm install && npm run build.
+    # Por ahora, subiremos los archivos directos.
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        path: '.'
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./  # Sube todo el contenido de tu repo
+        server-dir: /public_html/gutdata.cl/  # Ajustado a la ruta que mencionaste an
