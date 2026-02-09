@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Cube-like Hexagon Shape -->
+  <path d="M32 2 L58 17 V47 L32 62 L6 47 V17 Z" fill="url(#grad)" stroke="#1e293b" stroke-width="2"/>
+  <!-- Inner Y to make it look like a cube -->
+  <path d="M32 32 L32 62 M32 32 L58 17 M32 32 L6 17" stroke="#020617" stroke-width="2" fill="none"/>
+</svg>

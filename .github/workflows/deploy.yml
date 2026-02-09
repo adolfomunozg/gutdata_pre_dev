@@ -1,5 +1,5 @@
 name: Deploy a Ninja Hosting
-
+ 
 on:
   push:
     branches:
