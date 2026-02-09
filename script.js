@@ -35,17 +35,17 @@ function initContactForm() {
                 .then(data => {
                     feedback.textContent = "¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.";
                     feedback.style.display = 'block';
-                    feedback.style.backgroundColor = '#dcfce7';
-                    feedback.style.color = '#166534';
-                    feedback.style.border = '1px solid #86efac';
+                    feedback.style.backgroundColor = 'rgba(22, 101, 52, 0.2)';
+                    feedback.style.color = '#86efac';
+                    feedback.style.border = '1px solid #22c55e';
                     form.reset();
                 })
                 .catch(error => {
                     feedback.textContent = "Hubo un error al enviar el mensaje. Por favor intenta nuevamente.";
                     feedback.style.display = 'block';
-                    feedback.style.backgroundColor = '#fee2e2';
-                    feedback.style.color = '#991b1b';
-                    feedback.style.border = '1px solid #fca5a5';
+                    feedback.style.backgroundColor = 'rgba(153, 27, 27, 0.2)';
+                    feedback.style.color = '#fca5a5';
+                    feedback.style.border = '1px solid #ef4444';
                     console.error('Error:', error);
                 })
                 .finally(() => {
@@ -88,7 +88,7 @@ function initMobileMenu() {
 }
 
 /* =========================================
-   Particle System (Antigravity Effect)
+   Particle System (Enhanced Constellation)
    ========================================= */
 function initParticles() {
     const canvas = document.getElementById('hero-canvas');
@@ -98,9 +98,9 @@ function initParticles() {
     let particles = [];
 
     // Configuration
-    const particleCount = 60;
-    const connectionDistance = 150;
-    const mouseDistance = 200;
+    const particleCount = 80; // Increased count
+    const connectionDistance = 180;
+    const mouseDistance = 250;
 
     // Mouse state
     let mouse = { x: null, y: null };
@@ -125,10 +125,12 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.size = Math.random() * 2 + 1;
-            this.color = Math.random() > 0.5 ? 'rgba(59, 130, 246, ' : 'rgba(139, 92, 246, '; // Blue or Purple
+            this.vx = (Math.random() - 0.5) * 0.8; // Slightly faster
+            this.vy = (Math.random() - 0.5) * 0.8;
+            this.size = Math.random() * 2 + 1.5;
+            // Neon colors: Cyan, Blue, Purple
+            const colors = ['rgba(56, 189, 248,', 'rgba(129, 140, 248,', 'rgba(192, 132, 252,'];
+            this.baseColor = colors[Math.floor(Math.random() * colors.length)];
         }
 
         update() {
@@ -139,21 +141,20 @@ function initParticles() {
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
 
-            // Mouse interaction (Antigravity/Repulsion)
+            // Mouse interaction (Attraction/Connection instead of repulsion for better feel)
+            // Or gentle repulsion + connection
             if (mouse.x != null) {
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < mouseDistance) {
+                // Gentle repulsion if too close
+                if (distance < 100) {
                     const forceDirectionX = dx / distance;
                     const forceDirectionY = dy / distance;
-                    const force = (mouseDistance - distance) / mouseDistance;
-                    const directionX = forceDirectionX * force * 2; // Strength
-                    const directionY = forceDirectionY * force * 2;
-
-                    this.vx -= directionX;
-                    this.vy -= directionY;
+                    const force = (100 - distance) / 100;
+                    this.vx -= forceDirectionX * force * 0.5;
+                    this.vy -= forceDirectionY * force * 0.5;
                 }
             }
         }
@@ -161,8 +162,11 @@ function initParticles() {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = this.color + '0.5)';
+            ctx.fillStyle = this.baseColor + '0.8)';
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = this.baseColor + '1)';
             ctx.fill();
+            ctx.shadowBlur = 0; // Reset shadow for lines
         }
     }
 
@@ -184,6 +188,7 @@ function initParticles() {
 
         // Draw connections
         particles.forEach((a, index) => {
+            // Connect to other particles
             for (let j = index + 1; j < particles.length; j++) {
                 const b = particles[j];
                 const dx = a.x - b.x;
@@ -192,10 +197,27 @@ function initParticles() {
 
                 if (distance < connectionDistance) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(100, 116, 139, ${1 - distance / connectionDistance})`;
+                    ctx.strokeStyle = `rgba(148, 163, 184, ${0.15 * (1 - distance / connectionDistance)})`;
                     ctx.lineWidth = 1;
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+
+            // Connect to mouse
+            if (mouse.x != null) {
+                const dx = a.x - mouse.x;
+                const dy = a.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouseDistance) {
+                    ctx.beginPath();
+                    // Stronger connection to mouse
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${0.4 * (1 - distance / mouseDistance)})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(mouse.x, mouse.y);
                     ctx.stroke();
                 }
             }
@@ -218,7 +240,7 @@ function initParticles() {
    ========================================= */
 function initScrollAnimations() {
     const observerOptions = {
-        threshold: 0.1,
+        threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
@@ -226,34 +248,27 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Optional: Stop observing once visible to save performance
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
     // Elements to animate
-    const elements = document.querySelectorAll('.bento-item, .hero-title, .hero-subtitle, .section-header');
-    elements.forEach(el => {
+    const elements = document.querySelectorAll('.bento-item, .hero-title, .hero-subtitle, .section-header, .btn-primary, .btn-secondary');
+    elements.forEach((el, index) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        el.style.transform = 'translateY(40px)';
+        // Staggered delay for bento items
+        if (el.classList.contains('bento-item')) {
+            el.style.transition = `all 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${index * 0.1}s`;
+        } else {
+            el.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        }
         observer.observe(el);
     });
-
-    // Add visible class styles dynamically if not in CSS
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
 }
 
-/* =========================================
-   Smooth Scroll
-   ========================================= */
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -267,3 +282,4 @@ function initSmoothScroll() {
         });
     });
 }
+
