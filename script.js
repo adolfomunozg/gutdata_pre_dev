@@ -23,16 +23,23 @@ function initContactForm() {
 
             const formData = new FormData(form);
 
-            fetch("https://api.web3forms.com/submit", {
+            // Convertir datos a URLSearchParams para evitar preflight CORS
+            const formDataParams = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                formDataParams.append(key, value);
+            }
+
+            fetch("https://n8n.srv1336192.hstgr.cloud/webhook/867d8144-1ada-4b52-a556-f2e6b95847db", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify(Object.fromEntries(formData))
+                body: formDataParams
             })
-                .then(response => response.json())
-                .then(data => {
+                .then(response => {
+                    // En modo no-cors, la respuesta es opaca - no podemos leer el status
+                    // pero si llegamos aquí, la petición se envió sin error de red
                     feedback.textContent = "¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.";
                     feedback.style.display = 'block';
                     feedback.style.backgroundColor = 'rgba(22, 101, 52, 0.2)';

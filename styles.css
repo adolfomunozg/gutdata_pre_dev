@@ -458,6 +458,127 @@ p {
     box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
 }
 
+/* Booking CTA Section */
+.booking-cta {
+    padding: 5rem 0;
+    position: relative;
+}
+
+.booking-cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding: 3.5rem 4rem;
+}
+
+.booking-cta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.booking-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--accent-blue);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.booking-cta-content h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin-bottom: 0;
+}
+
+.booking-cta-content>p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.booking-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+}
+
+.booking-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.booking-features li i {
+    color: #22d3ee;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.booking-cta-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 220px;
+}
+
+.btn-booking {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #3b82f6 0%, #818cf8 100%);
+    color: #ffffff;
+    padding: 1.1rem 2rem;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+    white-space: nowrap;
+}
+
+.btn-booking:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.55);
+    background: linear-gradient(135deg, #2563eb 0%, #6366f1 100%);
+}
+
+.btn-booking i {
+    font-size: 1.1rem;
+}
+
+.booking-note {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .booking-cta-inner {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+
+    .booking-cta-action {
+        width: 100%;
+    }
+}
+
 /* Footer */
 .footer {
     padding: 5rem 0 2rem;
