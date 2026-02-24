@@ -1,7 +1,7 @@
 // GutData - Página Web Dinámica
 // JavaScript para interactividad y efectos dinámicos
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Elementos del DOM
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const floatingCards = document.querySelectorAll('.card');
 
     // Navegación móvil
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function () {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
         document.body.classList.toggle('nav-open');
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar menú móvil al hacer clic en enlaces
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.classList.remove('nav-open');
@@ -30,15 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Scroll suave para enlaces de navegación
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const headerHeight = header.offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Efecto de transparencia del header al hacer scroll
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const scrollY = window.scrollY;
-        
+
         if (scrollY > 100) {
             header.style.background = 'rgba(255, 255, 255, 0.98)';
             header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
@@ -65,12 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
         floatingCards.forEach((card, index) => {
             const delays = [0, 3, 6, 9]; // Delays más largos para evitar solapamiento
             card.style.animationDelay = `${delays[index]}s`;
-            
+
             // Agregar efecto de entrada escalonado con separación
             card.style.opacity = '0';
             card.style.transform = 'scale(0.3) translateY(80px)';
             card.style.zIndex = 10 + index; // Z-index para controlar el orden
-            
+
             setTimeout(() => {
                 card.style.transition = 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 card.style.opacity = '1';
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Efecto parallax en el hero
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         const heroContent = document.querySelector('.hero-content');
         const heroVisual = document.querySelector('.hero-visual');
-        
+
         if (hero && scrolled < hero.offsetHeight) {
             heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
             heroVisual.style.transform = `translateY(${scrolled * -0.3}px)`;
@@ -98,13 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const animationObserver = new IntersectionObserver(function(entries) {
+    const animationObserver = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 const element = entry.target;
                 const animationType = element.dataset.animation || 'fadeInUp';
                 const delay = element.dataset.delay || '0';
-                
+
                 setTimeout(() => {
                     element.classList.add(`animate-${animationType}`);
                     element.style.opacity = '1';
@@ -184,12 +184,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Efectos hover mejorados para las tarjetas de servicios
     servicioCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-10px) scale(1.02)';
             this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
         });
 
-        card.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
             this.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
         });
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funcionalidad de los botones del hero
     heroButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             if (this.textContent.includes('servicios')) {
                 document.querySelector('#servicios').scrollIntoView({
                     behavior: 'smooth'
@@ -212,9 +212,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validación y envío del formulario de contacto
     if (contactoForm) {
-        contactoForm.addEventListener('submit', function(e) {
+        contactoForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Obtener datos del formulario
             const formData = new FormData(this);
             const nombre = this.querySelector('input[type="text"]').value;
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simular envío del formulario
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
-            
+
             submitButton.textContent = 'Enviando...';
             submitButton.disabled = true;
 
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.textContent = message;
-        
+
         // Estilos de la notificación
         notification.style.cssText = `
             position: fixed;
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function typeWriter(element, text, speed = 100) {
         let i = 0;
         element.innerHTML = '';
-        
+
         function type() {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(type, speed);
             }
         }
-        
+
         type();
     }
 
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createParticles() {
         const hero = document.querySelector('.hero');
         const particleCount = 50;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -335,19 +335,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Efectos adicionales para las tarjetas flotantes
     function addCardInteractions() {
         floatingCards.forEach((card, index) => {
-            card.addEventListener('mouseenter', function() {
+            card.addEventListener('mouseenter', function () {
                 this.style.animationPlayState = 'paused';
                 this.style.transform = 'translateY(-15px) scale(1.1) rotate(2deg)';
                 this.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.3)';
             });
 
-            card.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function () {
                 this.style.animationPlayState = 'running';
                 this.style.transform = '';
                 this.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
             });
 
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 this.style.animation = 'shake 0.5s ease-in-out';
                 setTimeout(() => {
                     this.style.animation = 'float 8s ease-in-out infinite';
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function typeWriterEnhanced(element, text, speed = 50) {
         let i = 0;
         element.innerHTML = '';
-        
+
         function type() {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 element.innerHTML += '<span class="cursor">|</span>';
             }
         }
-        
+
         type();
     }
 
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createEnhancedParticles() {
         const hero = document.querySelector('.hero');
         const particleCount = 80;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -430,13 +430,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Smooth scroll para todos los enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 const headerHeight = header.offsetHeight;
                 const targetPosition = target.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -446,15 +446,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Efecto de carga inicial
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         document.body.classList.add('loaded');
-        
+
         // Animar elementos de entrada
         const animatedElements = document.querySelectorAll('.hero-content, .servicio-card, .nosotros-text');
         animatedElements.forEach((element, index) => {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px)';
-            
+
             setTimeout(() => {
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 element.style.opacity = '1';
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Utilidades adicionales
 const utils = {
     // Función para debounce
-    debounce: function(func, wait) {
+    debounce: function (func, wait) {
         let timeout;
         return function executedFunction(...args) {
             const later = () => {
@@ -498,9 +498,9 @@ const utils = {
     },
 
     // Función para throttle
-    throttle: function(func, limit) {
+    throttle: function (func, limit) {
         let inThrottle;
-        return function() {
+        return function () {
             const args = arguments;
             const context = this;
             if (!inThrottle) {
